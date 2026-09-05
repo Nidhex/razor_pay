@@ -17,7 +17,7 @@ export default function GuidedDemoBanner({ currentPortal, onPortalChange, active
     try {
       await seedDemoScenario();
       setSimMessage('✓ Demo Scenario Ready: Seeded ₹12,499 HDFC 3DS failure payment in DB');
-      onPortalChange('merchant');
+      onPortalChange('internal');
       onTabChange('live-payments');
       setDemoActive(true);
       setCurrentStepIdx(2); // Jump to Step 3: Live Failed Payment

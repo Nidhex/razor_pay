@@ -24,7 +24,7 @@ const SystemFlow = lazy(() => import('../internal/pages/SystemFlow'));
 const InternalAnalytics = lazy(() => import('../internal/pages/InternalAnalytics'));
 
 export default function App() {
-  const [currentPortal, setCurrentPortal] = useState('merchant'); // 'merchant' | 'internal'
+  const [currentPortal, setCurrentPortal] = useState('internal'); // 'merchant' | 'internal'
   const [merchantTab, setMerchantTab] = useState('dashboard');
   const [internalTab, setInternalTab] = useState('overview');
 
