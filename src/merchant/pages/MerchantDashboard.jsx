@@ -132,76 +132,103 @@ export default function MerchantDashboard({ onNavigate }) {
     : `₹${atRiskVal.toLocaleString('en-IN')}`;
 
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* Top Greeting Context Banner */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 p-6 rounded-2xl">
-        <div>
-          <div className="flex items-center gap-2">
-            <h2 className="text-xl sm:text-2xl font-extrabold text-white">Merchant Overview</h2>
-            <span className="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-semibold border border-indigo-500/30">
-              ID: {dashboardData?.merchant_id || CURRENT_MERCHANT_ID}
+    <div className="space-y-8 animate-fadeIn select-none">
+      {/* Top Banner Context Card */}
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#0F1117] border border-slate-800 p-6 rounded-2xl shadow-md">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-xl font-bold text-white tracking-tight">Revenue Recovery Dashboard</h2>
+            <span className="px-2.5 py-0.5 rounded-full bg-orange-500/10 text-orange-400 text-xs font-semibold border border-orange-500/20 font-mono">
+              Merchant ID: {dashboardData?.merchant_id || CURRENT_MERCHANT_ID}
             </span>
           </div>
-          <p className="text-sm text-slate-300 mt-1">
-            <strong className="text-rose-400 font-bold">{formattedRiskText} is currently at risk</strong> across {dashboardData?.failed_payments || 0} failed payments. RecoverAI has {dashboardData?.active_recovery_cases || 0} recovery workflows active.
+          <p className="text-xs text-slate-400">
+            <strong className="text-rose-400 font-bold">{formattedRiskText} at risk</strong> across {dashboardData?.failed_payments || 0} failed payments. RecoverAI has {dashboardData?.active_recovery_cases || 0} active recovery workflows.
           </p>
         </div>
 
-        <Button
-          variant="accent"
-          size="md"
-          icon={Zap}
+        <button
           onClick={() => onNavigate('copilot')}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20"
         >
-          Ask AI Assistant
-        </Button>
+          <Zap className="w-4 h-4 fill-current" />
+          <span>Ask AI Copilot</span>
+        </button>
       </div>
 
-      {/* Primary Metrics Grid */}
+      {/* Reference UI Style Metric Cards Group */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <StatCard
-          title="Revenue At Risk"
-          value={`₹${(dashboardData?.revenue_at_risk || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          subtitle={`${dashboardData?.failed_payments || 0} failed transactions`}
-          icon={DollarSign}
-          accentColor="rose"
-          trend="At Risk"
-          trendType="negative"
-          tooltip="Total value of failed or unrecovered transactions currently requiring recovery."
-        />
+        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-3 shadow-md hover:border-slate-700 transition-colors">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Revenue At Risk</span>
+            <div className="p-2 rounded-xl bg-rose-500/10 text-rose-400 border border-rose-500/20">
+              <DollarSign className="w-4 h-4" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-extrabold text-white tracking-tight">
+              ₹{(dashboardData?.revenue_at_risk || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-rose-400 font-semibold mt-1">
+              <AlertCircle className="w-3.5 h-3.5" />
+              <span>{dashboardData?.failed_payments || 0} failed transactions</span>
+            </div>
+          </div>
+        </div>
 
-        <StatCard
-          title="Revenue Recovered"
-          value={`₹${(dashboardData?.revenue_recovered || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
-          subtitle="Recovered by RecoverAI"
-          icon={CheckCircle2}
-          accentColor="emerald"
-          trend="Active Recovery"
-          trendType="positive"
-          tooltip="Total value of transactions legitimately recovered by RecoverAI."
-        />
+        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-3 shadow-md hover:border-slate-700 transition-colors">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Revenue Recovered</span>
+            <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <CheckCircle2 className="w-4 h-4" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-extrabold text-white tracking-tight">
+              ₹{(dashboardData?.revenue_recovered || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-semibold mt-1">
+              <TrendingUp className="w-3.5 h-3.5" />
+              <span>Recovered by RecoverAI</span>
+            </div>
+          </div>
+        </div>
 
-        <StatCard
-          title="Recovery Rate"
-          value={`${(dashboardData?.recovery_rate || 0).toFixed(2)}%`}
-          subtitle="Overall conversion efficiency"
-          icon={TrendingUp}
-          accentColor="indigo"
-          trend="Calculated Rate"
-          trendType="positive"
-          tooltip="Confirmed recovered revenue divided by total at-risk plus recovered revenue."
-        />
+        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-3 shadow-md hover:border-slate-700 transition-colors">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Recovery Rate</span>
+            <div className="p-2 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-extrabold text-white tracking-tight">
+              {(dashboardData?.recovery_rate || 0).toFixed(2)}%
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-orange-400 font-semibold mt-1">
+              <Zap className="w-3.5 h-3.5" />
+              <span>ML Predicted Efficiency</span>
+            </div>
+          </div>
+        </div>
 
-        <StatCard
-          title="Active Cases"
-          value={`${dashboardData?.active_recovery_cases || 0} Cases`}
-          subtitle="AI automated workflows"
-          icon={RefreshCw}
-          accentColor="cyan"
-          trend={`${dashboardData?.active_recovery_cases || 0} Active`}
-          trendType="neutral"
-          tooltip="Active failed payment recovery workflows currently requiring or undergoing retry."
-        />
+        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-3 shadow-md hover:border-slate-700 transition-colors">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Active Workflows</span>
+            <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <RefreshCw className="w-4 h-4" />
+            </div>
+          </div>
+          <div>
+            <div className="text-2xl font-extrabold text-white tracking-tight">
+              {dashboardData?.active_recovery_cases || 0} Cases
+            </div>
+            <div className="flex items-center gap-1.5 text-xs text-cyan-400 font-semibold mt-1">
+              <Activity className="w-3.5 h-3.5" />
+              <span>Automated Retries Active</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Phase 8A: Live Razorpay Test Mode Payment Card */}
@@ -225,8 +252,16 @@ export default function MerchantDashboard({ onNavigate }) {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-base font-bold text-white">Recent Failed Payments</h3>
-              <p className="text-xs text-slate-400">Click any record to inspect AI diagnostic breakdown</p>
+              <div className="flex items-center gap-3">
+                <h3 className="text-base font-bold text-white">Recent Failed Transactions</h3>
+                <button
+                  onClick={() => onNavigate('denials')}
+                  className="text-xs font-semibold text-orange-400 hover:text-orange-300"
+                >
+                  View all
+                </button>
+              </div>
+              <p className="text-xs text-slate-400">Click any transaction to inspect AI diagnostic breakdown</p>
             </div>
 
             <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -234,27 +269,26 @@ export default function MerchantDashboard({ onNavigate }) {
                 <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="Filter table..."
+                  placeholder="Filter by ID, customer..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full sm:w-48 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 pl-8 pr-3 py-1.5 focus:outline-none focus:border-indigo-500"
+                  className="w-full sm:w-48 bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 pl-8 pr-3 py-1.5 focus:outline-none focus:border-orange-500/50"
                 />
               </div>
 
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={() => onNavigate('denials')}
+                className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
               >
-                View All
-              </Button>
+                View Denials
+              </button>
             </div>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-[#0F1117] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+                <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
                   <tr>
                     <th className="py-3.5 px-4">Payment ID</th>
                     <th className="py-3.5 px-4">Customer</th>
@@ -279,7 +313,7 @@ export default function MerchantDashboard({ onNavigate }) {
                         onClick={() => handleOpenDrawer(payment)}
                         className="hover:bg-slate-800/50 cursor-pointer transition-colors duration-150 group"
                       >
-                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-200 group-hover:text-indigo-400">
+                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-200 group-hover:text-orange-400">
                           {payment.id}
                         </td>
                         <td className="py-3.5 px-4 font-medium text-slate-200">{payment.customer}</td>
@@ -296,7 +330,7 @@ export default function MerchantDashboard({ onNavigate }) {
                           </Badge>
                         </td>
                         <td className="py-3.5 px-4 text-right">
-                          <span className="inline-flex items-center text-xs font-semibold text-indigo-400 hover:text-indigo-300">
+                          <span className="inline-flex items-center text-xs font-semibold text-orange-400 hover:text-orange-300">
                             Inspect <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
                           </span>
                         </td>
@@ -321,7 +355,7 @@ export default function MerchantDashboard({ onNavigate }) {
             </span>
           </div>
 
-          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
+          <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
             {merchantActivityFeed.map((item) => (
               <div key={item.id} className="flex items-start gap-3 pb-3 border-b border-slate-800/60 last:border-0 last:pb-0">
                 <div
@@ -330,7 +364,7 @@ export default function MerchantDashboard({ onNavigate }) {
                       ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                       : item.type === 'failure'
                       ? 'bg-rose-500/10 border-rose-500/20 text-rose-400'
-                      : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
+                      : 'bg-orange-500/10 border-orange-500/20 text-orange-400'
                   }`}
                 >
                   {item.type === 'success' ? (

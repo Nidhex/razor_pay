@@ -62,7 +62,7 @@ export default function Analytics() {
   const rawReasons = analyticsData?.failures_by_reason || [];
   const totalFailures = rawReasons.reduce((acc, curr) => acc + curr.count, 0) || 1;
 
-  const colorPalette = ['#f43f5e', '#8b5cf6', '#3b82f6', '#06b6d4', '#10b981', '#f59e0b', '#ec4899'];
+  const colorPalette = ['#f97316', '#f59e0b', '#10b981', '#06b6d4', '#8b5cf6', '#ec4899', '#f43f5e'];
 
   const failureReasonsChart = rawReasons.map((item, idx) => ({
     name: item.reason,
@@ -94,11 +94,11 @@ export default function Analytics() {
   const core = analyticsData?.core_metrics;
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-8 animate-fadeIn select-none">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white">Merchant Recovery & Failure Analytics</h2>
+          <h2 className="text-xl font-bold text-white tracking-tight">Merchant Recovery & Failure Analytics</h2>
           <p className="text-xs text-slate-400">Deep-dive breakdown into failure reasons, payment methods, and AI strategy conversion rates.</p>
         </div>
 
@@ -109,7 +109,7 @@ export default function Analytics() {
               onClick={() => setTimeframe(tf)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-xl border transition-all ${
                 timeframe === tf
-                  ? 'bg-indigo-600 border-indigo-500 text-white shadow-md'
+                  ? 'bg-orange-500/20 border-orange-500/30 text-orange-300 shadow-md'
                   : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
               }`}
             >
@@ -122,7 +122,7 @@ export default function Analytics() {
       {/* Top Summary KPI Cards if available */}
       {core && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
             <span className="text-xs text-slate-400 font-medium">Total Volume</span>
             <div className="text-2xl font-extrabold text-white">
               ₹{(core.total_volume || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -130,7 +130,7 @@ export default function Analytics() {
             <span className="text-[10px] text-slate-500 font-mono">{core.total_transactions || 0} total transactions</span>
           </div>
 
-          <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
             <span className="text-xs text-slate-400 font-medium">Revenue At Risk</span>
             <div className="text-2xl font-extrabold text-rose-400">
               ₹{(core.revenue_at_risk || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -138,7 +138,7 @@ export default function Analytics() {
             <span className="text-[10px] text-slate-500 font-mono">{core.failed_transactions || 0} failed payments</span>
           </div>
 
-          <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
             <span className="text-xs text-slate-400 font-medium">Revenue Recovered</span>
             <div className="text-2xl font-extrabold text-emerald-400">
               ₹{(core.revenue_recovered || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -146,9 +146,9 @@ export default function Analytics() {
             <span className="text-[10px] text-slate-500 font-mono">{core.recovered_cases || 0} confirmed recovered cases</span>
           </div>
 
-          <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
             <span className="text-xs text-slate-400 font-medium">Recovery Rate</span>
-            <div className="text-2xl font-extrabold text-cyan-400">
+            <div className="text-2xl font-extrabold text-orange-400">
               {(core.recovery_rate || 0).toFixed(2)}%
             </div>
             <span className="text-[10px] text-slate-500 font-mono">Confirmed recovery ratio</span>
@@ -159,14 +159,15 @@ export default function Analytics() {
       {/* Grid 1: Failure Reason Distribution & AI Strategy Effectiveness */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Failure Reason Bar Chart */}
-        <Card header="Top Failure Reasons" hover={false}>
+        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
+          <div className="text-sm font-bold text-white tracking-tight">Top Failure Reasons</div>
           {failureReasonsChart.length === 0 ? (
             <div className="h-64 flex items-center justify-center text-xs text-slate-500">
               No failure records found in database
             </div>
           ) : (
             <>
-              <div className="h-64 w-full pt-4">
+              <div className="h-64 w-full pt-2">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={failureReasonsChart} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                     <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} />
@@ -184,7 +185,7 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-4 border-t border-slate-800 text-xs">
+              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-slate-800 text-xs">
                 {failureReasonsChart.map((fr) => (
                   <div key={fr.name} className="flex items-center justify-between p-2 rounded-lg bg-slate-950">
                     <span className="text-slate-400 font-medium truncate">{fr.name}</span>
@@ -194,11 +195,12 @@ export default function Analytics() {
               </div>
             </>
           )}
-        </Card>
+        </div>
 
         {/* Strategy Conversion Performance */}
-        <Card header="AI Strategy Effectiveness" hover={false}>
-          <div className="space-y-4 pt-2">
+        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
+          <div className="text-sm font-bold text-white tracking-tight">AI Strategy Effectiveness</div>
+          <div className="space-y-4 pt-1">
             {strategyPerformance.length === 0 ? (
               <div className="h-64 flex items-center justify-center text-xs text-slate-500">
                 No strategy performance data calculated yet
@@ -213,7 +215,7 @@ export default function Analytics() {
 
                   <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-emerald-400"
+                      className="h-full bg-gradient-to-r from-orange-500 to-emerald-400"
                       style={{ width: `${sc.rate}%` }}
                     />
                   </div>
@@ -226,14 +228,15 @@ export default function Analytics() {
               ))
             )}
           </div>
-        </Card>
+        </div>
       </div>
 
       {/* Grid 2: Payment Method Breakdown Table */}
-      <Card header="Payment Method Failure & Recovery Matrix" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
+        <div className="text-sm font-bold text-white tracking-tight">Payment Method Failure & Recovery Matrix</div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+            <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
               <tr>
                 <th className="py-3 px-4">Payment Method</th>
                 <th className="py-3 px-4">Failed Count</th>
@@ -257,7 +260,7 @@ export default function Analytics() {
                       <td className="py-3.5 px-4 font-semibold text-white">{mb.name}</td>
                       <td className="py-3.5 px-4 font-bold text-slate-200">{mb.failures} failures</td>
                       <td className="py-3.5 px-4 font-mono text-amber-400">₹{(mb.volume || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td className="py-3.5 px-4 text-indigo-300 font-mono">{share}% of total</td>
+                      <td className="py-3.5 px-4 text-orange-300 font-mono">{share}% of total</td>
                       <td className="py-3.5 px-4 text-right">
                         <Badge variant={share < 40 ? 'success' : 'warning'} size="sm">
                           {share < 40 ? 'Optimal' : 'High Failure Volume'}
@@ -270,7 +273,7 @@ export default function Analytics() {
             </tbody>
           </table>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

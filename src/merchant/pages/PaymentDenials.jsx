@@ -103,22 +103,21 @@ export default function PaymentDenials() {
   const totalAmountLakhs = (failedPayments.reduce((sum, item) => sum + item.amount, 0) / 100000).toFixed(1);
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn select-none">
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white">Payment Denials & Failed Transactions</h2>
+          <h2 className="text-xl font-bold text-white tracking-tight">Payment Denials & Failed Transactions</h2>
           <p className="text-xs text-slate-400">Search, analyze root causes, and trigger AI automated recovery workflows.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
-          <Button
-            variant="primary"
-            size="sm"
-            icon={CreditCard}
+          <button
             onClick={() => setRazorpayModalOpen(true)}
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20"
           >
-            Test Razorpay Payment
-          </Button>
+            <CreditCard className="w-3.5 h-3.5" />
+            <span>Test Razorpay Payment</span>
+          </button>
           <Badge variant="brand" size="md">
             {totalFailedCount} Failed Records
           </Badge>
@@ -129,7 +128,7 @@ export default function PaymentDenials() {
       </div>
 
       {/* Control Bar: Search & Filters */}
-      <Card padding="sm" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl shadow-md">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           {/* Search Box */}
           <div className="relative flex-1">
@@ -139,14 +138,14 @@ export default function PaymentDenials() {
               placeholder="Search by Payment ID, Customer name, Email, or Reason..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 pl-10 pr-4 py-2.5 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 pl-10 pr-4 py-2.5 focus:outline-none focus:border-orange-500/50 transition-colors"
             />
           </div>
 
           {/* Filter Dropdowns */}
           <div className="flex items-center gap-3 overflow-x-auto pb-1 md:pb-0">
             {/* Status Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-xs">
               <Filter className="w-3.5 h-3.5 text-slate-400" />
               <span className="text-slate-400">Status:</span>
               <select
@@ -161,7 +160,7 @@ export default function PaymentDenials() {
             </div>
 
             {/* Method Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-xl border border-slate-800 text-xs">
+            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-xs">
               <span className="text-slate-400">Method:</span>
               <select
                 value={selectedMethod}
@@ -177,7 +176,7 @@ export default function PaymentDenials() {
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Main Table */}
       {filtered.length === 0 ? (
@@ -185,16 +184,19 @@ export default function PaymentDenials() {
           title="No Failed Payments Found"
           description="No transaction records match your current search or filter options."
           action={
-            <Button variant="outline" size="sm" onClick={() => { setSearchTerm(''); setSelectedStatus('ALL'); setSelectedMethod('ALL'); }}>
+            <button
+              onClick={() => { setSearchTerm(''); setSelectedStatus('ALL'); setSelectedMethod('ALL'); }}
+              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
+            >
               Reset Filters
-            </Button>
+            </button>
           }
         />
       ) : (
-        <div className="bg-slate-900/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+              <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
                 <tr>
                   <th className="py-4 px-4">Payment ID</th>
                   <th className="py-4 px-4">Customer</th>
@@ -220,7 +222,7 @@ export default function PaymentDenials() {
                       onClick={() => handleRowClick(payment)}
                       className="hover:bg-slate-800/50 cursor-pointer transition-colors duration-150 group"
                     >
-                      <td className="py-4 px-4 font-mono font-bold text-slate-100 group-hover:text-indigo-400">
+                      <td className="py-4 px-4 font-mono font-bold text-slate-100 group-hover:text-orange-400">
                         {payment.id}
                       </td>
                       <td className="py-4 px-4">
@@ -245,7 +247,7 @@ export default function PaymentDenials() {
                         </Badge>
                       </td>
                       <td className="py-4 px-4 text-right">
-                        <div className="text-indigo-300 font-medium truncate max-w-xs ml-auto">
+                        <div className="text-orange-300 font-medium truncate max-w-xs ml-auto">
                           {payment.aiRecommendation}
                         </div>
                         <div className="text-[10px] text-emerald-400 font-bold">

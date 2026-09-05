@@ -5,15 +5,16 @@ import MerchantTopbar from './MerchantTopbar';
 export default function MerchantLayout({ currentPortal, onPortalChange, activeTab, setActiveTab, children }) {
   const pageTitles = {
     dashboard: 'Merchant Dashboard',
+    'live-payments': 'Live Payment Activity & Webhooks',
     denials: 'Payment Denials & Failed Transactions',
     cases: 'Active Recovery Cases Lifecycle',
     copilot: 'RecoverAI Financial Assistant',
     analytics: 'Merchant Failure & Recovery Analytics',
-    profile: 'Merchant Profile & Webhook Settings'
+    profile: 'Merchant Profile & Settings'
   };
 
   return (
-    <div className="theme-merchant min-h-screen bg-slate-950 text-slate-100 flex">
+    <div className="theme-merchant min-h-screen bg-[#090A0F] text-slate-100 flex font-sans">
       {/* Sidebar */}
       <MerchantSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 

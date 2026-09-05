@@ -174,11 +174,11 @@ export default function RecoveryCases() {
   }
 
   return (
-    <div className="space-y-6 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn select-none">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white">Active Recovery Cases Workspace</h2>
+          <h2 className="text-xl font-bold text-white tracking-tight">Active Recovery Cases Workspace</h2>
           <p className="text-xs text-slate-400">
             Database-driven recovery cases powered by SQLite single source of truth and ML intelligence.
           </p>
@@ -188,15 +188,19 @@ export default function RecoveryCases() {
           <Badge variant="brand" size="md">
             {metrics.activeCount} Active Cases ({metrics.total} Total)
           </Badge>
-          <Button variant="outline" size="xs" icon={RefreshCw} onClick={loadData}>
-            Refresh
-          </Button>
+          <button
+            onClick={loadData}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <span>Refresh</span>
+          </button>
         </div>
       </div>
 
       {/* Top Dynamic Summary Metric Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+        <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
           <span className="text-xs text-slate-400 font-medium">Amount in Recovery</span>
           <div className="text-2xl font-extrabold text-amber-400">
             ₹{metrics.amountInRecovery.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -204,7 +208,7 @@ export default function RecoveryCases() {
           <span className="text-[10px] text-slate-500 font-mono">{metrics.activeCount} active cases pending</span>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+        <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
           <span className="text-xs text-slate-400 font-medium">Amount Recovered</span>
           <div className="text-2xl font-extrabold text-emerald-400">
             ₹{metrics.amountRecovered.toLocaleString('en-IN', { minimumFractionDigits: 2 })}
@@ -212,17 +216,17 @@ export default function RecoveryCases() {
           <span className="text-[10px] text-slate-500 font-mono">{metrics.recoveredCount} verified successful cases</span>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+        <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
           <span className="text-xs text-slate-400 font-medium">Recovery Success Rate</span>
-          <div className="text-2xl font-extrabold text-cyan-400">
+          <div className="text-2xl font-extrabold text-orange-400">
             {metrics.successRate}%
           </div>
           <span className="text-[10px] text-slate-500 font-mono">Confirmed recovery ratio</span>
         </div>
 
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl space-y-1">
+        <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
           <span className="text-xs text-slate-400 font-medium">Awaiting Customer Retry</span>
-          <div className="text-2xl font-extrabold text-indigo-400">
+          <div className="text-2xl font-extrabold text-cyan-400">
             {metrics.awaitingCount}
           </div>
           <span className="text-[10px] text-slate-500 font-mono">Executed recovery workflows</span>
@@ -230,7 +234,7 @@ export default function RecoveryCases() {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-900/80 border border-slate-800 p-3 rounded-2xl">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-[#0F1117] border border-slate-800 p-3 rounded-2xl shadow-md">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -238,7 +242,7 @@ export default function RecoveryCases() {
             placeholder="Search payment ID, case ID, root cause, strategy, or incident ID..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-800 text-xs text-slate-200 pl-9 pr-4 py-2 rounded-xl focus:outline-none focus:border-brand-500 font-mono"
+            className="w-full bg-slate-950 border border-slate-800 text-xs text-slate-200 pl-9 pr-4 py-2 rounded-xl focus:outline-none focus:border-orange-500/50 font-mono"
           />
         </div>
 
@@ -254,7 +258,7 @@ export default function RecoveryCases() {
               onClick={() => setFilterStatus(tab.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors flex items-center gap-1.5 ${
                 filterStatus === tab.id
-                  ? 'bg-brand-500/20 text-brand-400 border border-brand-500/30'
+                  ? 'bg-orange-500/20 text-orange-300 border border-orange-500/30'
                   : 'bg-slate-950 text-slate-400 border border-slate-800 hover:text-slate-200'
               }`}
             >
@@ -269,7 +273,7 @@ export default function RecoveryCases() {
 
       {/* Case Cards Grid / Empty State */}
       {filteredCases.length === 0 ? (
-        <Card className="p-8 text-center space-y-3">
+        <div className="bg-[#0F1117] border border-slate-800 p-8 rounded-2xl text-center space-y-3">
           <div className="w-12 h-12 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-slate-500">
             <Zap className="w-6 h-6" />
           </div>
@@ -277,7 +281,7 @@ export default function RecoveryCases() {
           <p className="text-xs text-slate-400 max-w-md mx-auto">
             RecoverAI has no active payment cases matching your search criteria. All real failed payments from SQLite database are displayed above.
           </p>
-        </Card>
+        </div>
       ) : (
         <div className="space-y-4">
           {filteredCases.map((rc) => {
@@ -285,7 +289,7 @@ export default function RecoveryCases() {
             const isExecuted = rc.actionStatus === 'EXECUTED';
 
             return (
-              <Card key={rc.caseId} className="space-y-4 hover:border-slate-700 transition-colors" hover={false}>
+              <div key={rc.caseId} className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-4 hover:border-slate-700 transition-colors shadow-md">
                 {/* Header Info */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-800/80">
                   <div className="flex items-start gap-3">
@@ -293,7 +297,7 @@ export default function RecoveryCases() {
                       isRecovered 
                         ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
                         : isExecuted 
-                        ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400'
+                        ? 'bg-orange-500/10 border-orange-500/20 text-orange-400'
                         : 'bg-amber-500/10 border-amber-500/20 text-amber-400'
                     }`}>
                       <RefreshCw className={`w-5 h-5 ${isExecuted && !isRecovered ? 'animate-spin' : ''}`} />
@@ -348,7 +352,7 @@ export default function RecoveryCases() {
 
                   <div>
                     <span className="text-slate-500 block text-[11px]">Recommended Strategy</span>
-                    <span className="text-indigo-300 font-semibold block truncate" title={rc.strategy}>
+                    <span className="text-orange-300 font-semibold block truncate" title={rc.strategy}>
                       {rc.strategy}
                     </span>
                   </div>
@@ -372,11 +376,15 @@ export default function RecoveryCases() {
                     <span>Created: {rc.createdTime.slice(0, 19).replace('T', ' ')}</span>
                   </div>
 
-                  <Button variant="outline" size="sm" icon={ArrowUpRight} onClick={() => handleOpenDrawer(rc)}>
-                    View AI Diagnostics & Operational Drawer
-                  </Button>
+                  <button
+                    onClick={() => handleOpenDrawer(rc)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-orange-400 hover:text-orange-300 px-3 py-1.5 rounded-xl bg-orange-500/10 border border-orange-500/20"
+                  >
+                    <span>View AI Diagnostics & Drawer</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
-              </Card>
+              </div>
             );
           })}
         </div>

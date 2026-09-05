@@ -128,12 +128,12 @@ export default function AICopilot() {
   };
 
   return (
-    <div className="space-y-6 animate-fadeIn max-w-5xl mx-auto">
+    <div className="space-y-6 animate-fadeIn max-w-5xl mx-auto select-none">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <Bot className="w-5 h-5 text-indigo-400" />
+          <h2 className="text-xl font-bold text-white tracking-tight flex items-center gap-2">
+            <Bot className="w-5 h-5 text-orange-400" />
             RecoverAI Financial Intelligence Copilot
           </h2>
           <p className="text-xs text-slate-400">
@@ -141,7 +141,7 @@ export default function AICopilot() {
           </p>
         </div>
 
-        <Badge variant="brand" pulse dot size="md">
+        <Badge variant="warning" pulse dot size="md">
           AI Engine Online
         </Badge>
       </div>
@@ -160,7 +160,7 @@ export default function AICopilot() {
           <button
             key={idx}
             onClick={() => handleSendMessage(prompt)}
-            className="text-xs text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/20 px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors"
+            className="text-xs text-orange-300 bg-orange-500/10 hover:bg-orange-500/20 border border-orange-500/20 px-3 py-1.5 rounded-xl whitespace-nowrap transition-colors font-medium"
           >
             {prompt}
           </button>
@@ -168,7 +168,7 @@ export default function AICopilot() {
       </div>
 
       {/* Chat Messages Stream */}
-      <Card className="min-h-[480px] flex flex-col justify-between" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-xl min-h-[480px] flex flex-col justify-between space-y-4">
         <div className="space-y-6 overflow-y-auto max-h-[520px] pr-2">
           {messages.map((msg) => (
             <div
@@ -176,7 +176,7 @@ export default function AICopilot() {
               className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'ai' && (
-                <div className="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white shrink-0 shadow-md">
+                <div className="w-8 h-8 rounded-xl bg-orange-500 flex items-center justify-center text-slate-950 shrink-0 shadow-md font-bold">
                   <Bot className="w-4 h-4" />
                 </div>
               )}
@@ -184,7 +184,7 @@ export default function AICopilot() {
               <div
                 className={`max-w-2xl rounded-2xl p-4 text-xs leading-relaxed space-y-3 ${
                   msg.sender === 'user'
-                    ? 'bg-indigo-600 text-white font-medium shadow-md'
+                    ? 'bg-gradient-to-r from-orange-400 to-amber-500 text-slate-950 font-bold shadow-md'
                     : 'bg-slate-950 border border-slate-800 text-slate-200 shadow-xl'
                 }`}
               >
@@ -194,14 +194,12 @@ export default function AICopilot() {
                       <RefreshCw className="w-4 h-4 text-rose-400 shrink-0" />
                       <span>{msg.text}</span>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      icon={RefreshCw}
+                    <button
                       onClick={() => handleSendMessage(null, msg.failedQuery)}
+                      className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
                     >
-                      Retry
-                    </Button>
+                      Retry Query
+                    </button>
                   </div>
                 ) : (
                   <>
@@ -209,16 +207,16 @@ export default function AICopilot() {
 
                     {/* Payment Card Preview if available */}
                     {msg.payment_card && (
-                      <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-2">
+                      <div className="bg-slate-900/90 border border-orange-500/30 p-3.5 rounded-xl space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-indigo-300">{msg.payment_card.payment_id}</span>
+                          <span className="text-xs font-bold text-orange-300">{msg.payment_card.payment_id}</span>
                           <span className="text-xs font-semibold text-emerald-400">₹{msg.payment_card.amount_inr?.toLocaleString()}</span>
                         </div>
                         <div className="text-[11px] text-slate-400 grid grid-cols-2 gap-2">
                           <div>Method: <strong className="text-slate-200">{msg.payment_card.payment_method}</strong></div>
                           <div>Recovery Prob: <strong className="text-emerald-400">{msg.payment_card.recovery_probability}%</strong></div>
                           <div>Category: <strong className="text-slate-200">{msg.payment_card.failure_category}</strong></div>
-                          <div>Band: <strong className="text-indigo-400">{msg.payment_card.probability_band}</strong></div>
+                          <div>Band: <strong className="text-orange-400">{msg.payment_card.probability_band}</strong></div>
                         </div>
                       </div>
                     )}
@@ -237,24 +235,22 @@ export default function AICopilot() {
 
                     {/* Recommendation Box */}
                     {msg.recommendation && (
-                      <div className="bg-indigo-950/50 border border-indigo-500/30 p-3 rounded-xl space-y-1">
-                        <div className="text-[10px] font-bold text-indigo-300 uppercase tracking-wider flex items-center gap-1">
-                          <Sparkles className="w-3 h-3 text-indigo-400" /> AI Recommendation
+                      <div className="bg-orange-950/40 border border-orange-500/30 p-3 rounded-xl space-y-1">
+                        <div className="text-[10px] font-bold text-orange-300 uppercase tracking-wider flex items-center gap-1">
+                          <Sparkles className="w-3 h-3 text-orange-400" /> AI Recommendation
                         </div>
                         <div className="text-xs text-slate-200">{msg.recommendation}</div>
                       </div>
                     )}
 
                     {msg.suggestedAction && (
-                      <Button
-                        variant="accent"
-                        size="sm"
-                        icon={ArrowRight}
-                        iconPosition="right"
+                      <button
                         onClick={() => handleExecuteAction(msg)}
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 px-3 py-1.5 rounded-lg shadow-md"
                       >
-                        {msg.suggestedAction}
-                      </Button>
+                        <span>{msg.suggestedAction}</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </button>
                     )}
                   </>
                 )}
@@ -270,7 +266,7 @@ export default function AICopilot() {
 
           {loading && (
             <div className="flex gap-3 justify-start items-center text-slate-400 text-xs animate-pulse">
-              <div className="w-8 h-8 rounded-xl bg-indigo-600/50 flex items-center justify-center text-white">
+              <div className="w-8 h-8 rounded-xl bg-orange-500/50 flex items-center justify-center text-white">
                 <Bot className="w-4 h-4" />
               </div>
               <span>RecoverAI is analyzing telemetry & running ML inference...</span>
@@ -287,13 +283,18 @@ export default function AICopilot() {
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
-            className="flex-1 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 px-4 py-3 focus:outline-none focus:border-indigo-500"
+            className="flex-1 bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 px-4 py-3 focus:outline-none focus:border-orange-500/50"
           />
-          <Button variant="primary" size="md" icon={Send} onClick={() => handleSendMessage()} disabled={loading}>
-            Send
-          </Button>
+          <button
+            onClick={() => handleSendMessage()}
+            disabled={loading}
+            className="flex items-center gap-2 px-4 py-3 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20 disabled:opacity-50"
+          >
+            <span>Send</span>
+            <Send className="w-3.5 h-3.5" />
+          </button>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

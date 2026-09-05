@@ -22,21 +22,26 @@ export default function MerchantProfile() {
   };
 
   return (
-    <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto">
+    <div className="space-y-8 animate-fadeIn max-w-4xl mx-auto select-none">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white">Merchant Profile & Settings</h2>
+          <h2 className="text-xl font-bold text-white tracking-tight">Merchant Profile & Settings</h2>
           <p className="text-xs text-slate-400">Manage business information, API keys, webhooks, and automated recovery preferences.</p>
         </div>
 
-        <Button variant="primary" size="md" icon={Save} onClick={handleSave}>
-          {saved ? 'Settings Saved!' : 'Save Preferences'}
-        </Button>
+        <button
+          onClick={handleSave}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20"
+        >
+          <Save className="w-4 h-4" />
+          <span>{saved ? 'Settings Saved!' : 'Save Preferences'}</span>
+        </button>
       </div>
 
       {/* Business Details Card */}
-      <Card header="Business Profile Information" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-4">
+        <div className="text-sm font-bold text-white tracking-tight">Business Profile Information</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
           <div className="space-y-1.5">
             <label className="text-slate-400 font-medium">Business Name</label>
@@ -44,7 +49,7 @@ export default function MerchantProfile() {
               type="text"
               readOnly
               value={merchantProfile.businessName}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white font-semibold"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-white font-semibold focus:outline-none"
             />
           </div>
 
@@ -54,7 +59,7 @@ export default function MerchantProfile() {
               type="text"
               readOnly
               value={merchantProfile.legalName}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none"
             />
           </div>
 
@@ -64,7 +69,7 @@ export default function MerchantProfile() {
               type="email"
               readOnly
               value={merchantProfile.email}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none"
             />
           </div>
 
@@ -74,14 +79,15 @@ export default function MerchantProfile() {
               type="text"
               readOnly
               value={merchantProfile.businessType}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-slate-300 focus:outline-none"
             />
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* API & Webhook Security Credentials */}
-      <Card header="API Credentials & Webhooks" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-4">
+        <div className="text-sm font-bold text-white tracking-tight">API Credentials & Webhooks</div>
         <div className="space-y-4 text-xs">
           <div className="space-y-1.5">
             <label className="text-slate-400 font-medium">Live API Key (Masked for Security)</label>
@@ -90,11 +96,15 @@ export default function MerchantProfile() {
                 type="text"
                 readOnly
                 value={merchantProfile.apiKeyMasked}
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 font-mono text-indigo-300 font-bold"
+                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 font-mono text-orange-300 font-bold focus:outline-none"
               />
-              <Button variant="outline" size="sm" icon={copied ? Check : Copy} onClick={handleCopyKey}>
-                {copied ? 'Copied' : 'Copy'}
-              </Button>
+              <button
+                onClick={handleCopyKey}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                <span>{copied ? 'Copied' : 'Copy'}</span>
+              </button>
             </div>
           </div>
 
@@ -104,16 +114,17 @@ export default function MerchantProfile() {
               <input
                 type="text"
                 defaultValue={merchantProfile.webhookUrl}
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 font-mono text-slate-300"
+                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 font-mono text-slate-300 focus:outline-none"
               />
               <Badge variant="success" size="sm">Active Endpoint</Badge>
             </div>
           </div>
         </div>
-      </Card>
+      </div>
 
       {/* Recovery Automation Preferences */}
-      <Card header="Automated Recovery Preferences" hover={false}>
+      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-4">
+        <div className="text-sm font-bold text-white tracking-tight">Automated Recovery Preferences</div>
         <div className="space-y-4 text-xs">
           <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
             <div>
@@ -124,7 +135,7 @@ export default function MerchantProfile() {
               type="checkbox"
               checked={preferences.autoRetryEnabled}
               onChange={(e) => setPreferences({ ...preferences, autoRetryEnabled: e.target.checked })}
-              className="w-4 h-4 accent-indigo-600 rounded cursor-pointer"
+              className="w-4 h-4 accent-orange-500 rounded cursor-pointer"
             />
           </div>
 
@@ -137,7 +148,7 @@ export default function MerchantProfile() {
               type="checkbox"
               checked={preferences.whatsappRecoveryMsg}
               onChange={(e) => setPreferences({ ...preferences, whatsappRecoveryMsg: e.target.checked })}
-              className="w-4 h-4 accent-indigo-600 rounded cursor-pointer"
+              className="w-4 h-4 accent-orange-500 rounded cursor-pointer"
             />
           </div>
 
@@ -150,11 +161,11 @@ export default function MerchantProfile() {
               type="checkbox"
               checked={preferences.smartFallbackRoute}
               onChange={(e) => setPreferences({ ...preferences, smartFallbackRoute: e.target.checked })}
-              className="w-4 h-4 accent-indigo-600 rounded cursor-pointer"
+              className="w-4 h-4 accent-orange-500 rounded cursor-pointer"
             />
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

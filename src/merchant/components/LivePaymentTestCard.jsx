@@ -558,14 +558,14 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
     <>
       <Card
         className="
-          bg-gradient-to-br
-          from-slate-900
-          via-slate-900
-          to-indigo-950/40
-          border-indigo-500/30
+          bg-slate-900/90
+          border-slate-800
+          hover:border-orange-500/30
           p-5
           relative
           overflow-hidden
+          shadow-lg
+          transition-colors
         "
       >
 
@@ -589,7 +589,7 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
             <div className="flex items-center gap-2">
 
               <CreditCard
-                className="w-5 h-5 text-indigo-400"
+                className="w-5 h-5 text-orange-400"
               />
 
               <h3
@@ -603,10 +603,10 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
               </h3>
 
               <Badge
-                variant="brand"
+                variant="warning"
                 size="xs"
               >
-                Phase 8A
+                TEST MODE
               </Badge>
 
             </div>
@@ -675,7 +675,7 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
                   pr-3
                   py-2
                   focus:outline-none
-                  focus:border-indigo-500
+                  focus:border-orange-500
                   disabled:opacity-50
                 "
                 placeholder="1"
@@ -684,18 +684,25 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
             </div>
 
 
-            <Button
-              variant="primary"
-              size="md"
-              icon={loading ? Loader2 : Zap}
+            <button
               onClick={handleStartPayment}
               disabled={loading}
-              className=""
+              className="
+                flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20 disabled:opacity-50 disabled:cursor-not-allowed
+              "
             >
-              {loading
-                ? 'Processing...'
-                : 'Create Test Payment'}
-            </Button>
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-4 h-4 fill-current" />
+                  <span>Create Test Payment</span>
+                </>
+              )}
+            </button>
 
           </div>
 
