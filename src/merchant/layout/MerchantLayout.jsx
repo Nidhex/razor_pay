@@ -1,3 +1,7 @@
+import React from 'react';
+import MerchantSidebar from './MerchantSidebar';
+import MerchantTopbar from './MerchantTopbar';
+
 export default function MerchantLayout({ currentPortal, onPortalChange, activeTab, setActiveTab, children }) {
   const pageTitles = {
     dashboard: 'Merchant Dashboard',
