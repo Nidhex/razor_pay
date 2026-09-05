@@ -107,13 +107,13 @@ export default function PaymentDenials() {
       {/* Header Banner */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Payment Denials & Failed Transactions</h2>
-          <p className="text-xs text-slate-400">Search, analyze root causes, and trigger AI automated recovery workflows.</p>
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Payment Denials & Failed Transactions</h2>
+          <p className="text-xs text-slate-500">Search, analyze root causes, and trigger AI automated recovery workflows.</p>
         </div>
         <div className="flex items-center gap-2 flex-wrap">
           <button
             onClick={() => setRazorpayModalOpen(true)}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20"
+            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-all shadow-sm"
           >
             <CreditCard className="w-3.5 h-3.5" />
             <span>Test Razorpay Payment</span>
@@ -128,7 +128,7 @@ export default function PaymentDenials() {
       </div>
 
       {/* Control Bar: Search & Filters */}
-      <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl shadow-md">
+      <div className="bg-white border border-slate-200/90 p-4 rounded-2xl shadow-sm">
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
           {/* Search Box */}
           <div className="relative flex-1">
@@ -138,20 +138,20 @@ export default function PaymentDenials() {
               placeholder="Search by Payment ID, Customer name, Email, or Reason..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl text-xs text-slate-200 placeholder-slate-500 pl-10 pr-4 py-2.5 focus:outline-none focus:border-orange-500/50 transition-colors"
+              className="w-full bg-white border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 pl-10 pr-4 py-2.5 focus:outline-none focus:border-indigo-500 transition-colors shadow-sm"
             />
           </div>
 
           {/* Filter Dropdowns */}
           <div className="flex items-center gap-3 overflow-x-auto pb-1 md:pb-0">
             {/* Status Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-xs">
-              <Filter className="w-3.5 h-3.5 text-slate-400" />
-              <span className="text-slate-400">Status:</span>
+            <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
+              <Filter className="w-3.5 h-3.5 text-slate-500" />
+              <span className="text-slate-500">Status:</span>
               <select
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
-                className="bg-transparent text-white font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent text-slate-900 font-semibold focus:outline-none cursor-pointer"
               >
                 <option value="ALL">All Statuses</option>
                 <option value="IN_RECOVERY">In Recovery</option>
@@ -160,12 +160,12 @@ export default function PaymentDenials() {
             </div>
 
             {/* Method Filter */}
-            <div className="flex items-center gap-1.5 bg-slate-950 px-3 py-2 rounded-xl border border-slate-800 text-xs">
-              <span className="text-slate-400">Method:</span>
+            <div className="flex items-center gap-1.5 bg-slate-50 px-3 py-2 rounded-xl border border-slate-200 text-xs">
+              <span className="text-slate-500">Method:</span>
               <select
                 value={selectedMethod}
                 onChange={(e) => setSelectedMethod(e.target.value)}
-                className="bg-transparent text-white font-semibold focus:outline-none cursor-pointer"
+                className="bg-transparent text-slate-900 font-semibold focus:outline-none cursor-pointer"
               >
                 <option value="ALL">All Methods</option>
                 <option value="Card">Cards</option>
@@ -186,17 +186,17 @@ export default function PaymentDenials() {
           action={
             <button
               onClick={() => { setSearchTerm(''); setSelectedStatus('ALL'); setSelectedMethod('ALL'); }}
-              className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white"
+              className="px-4 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-200"
             >
               Reset Filters
             </button>
           }
         />
       ) : (
-        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+              <thead className="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-[10px] tracking-wider font-semibold">
                 <tr>
                   <th className="py-4 px-4">Payment ID</th>
                   <th className="py-4 px-4">Customer</th>
@@ -208,7 +208,7 @@ export default function PaymentDenials() {
                   <th className="py-4 px-4 text-right">AI Recommendation</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-300">
+              <tbody className="divide-y divide-slate-100 text-slate-700">
                 {filtered.map((payment) => {
                   const statusVariant = {
                     RECOVERED: 'success',
@@ -220,37 +220,37 @@ export default function PaymentDenials() {
                     <tr
                       key={payment.id}
                       onClick={() => handleRowClick(payment)}
-                      className="hover:bg-slate-800/50 cursor-pointer transition-colors duration-150 group"
+                      className="hover:bg-slate-50/80 cursor-pointer transition-colors duration-150 group"
                     >
-                      <td className="py-4 px-4 font-mono font-bold text-slate-100 group-hover:text-orange-400">
+                      <td className="py-4 px-4 font-mono font-bold text-slate-900 group-hover:text-purple-600">
                         {payment.id}
                       </td>
                       <td className="py-4 px-4">
-                        <div className="font-semibold text-slate-200">{payment.customer}</div>
-                        <div className="text-[10px] text-slate-400">{payment.email}</div>
+                        <div className="font-semibold text-slate-900">{payment.customer}</div>
+                        <div className="text-[10px] text-slate-500">{payment.email}</div>
                       </td>
-                      <td className="py-4 px-4 font-extrabold text-white text-sm">
+                      <td className="py-4 px-4 font-extrabold text-slate-900 text-sm">
                         ₹{(payment.amount ?? 0).toLocaleString('en-IN')}
                       </td>
                       <td className="py-4 px-4">
-                        <div className="font-medium text-slate-200">{payment.method}</div>
-                        <div className="text-[10px] text-slate-400">{payment.gateway}</div>
+                        <div className="font-medium text-slate-800">{payment.method}</div>
+                        <div className="text-[10px] text-slate-500">{payment.gateway}</div>
                       </td>
                       <td className="py-4 px-4 max-w-xs">
-                        <div className="text-rose-400 font-medium truncate">{payment.failureReason}</div>
+                        <div className="text-rose-600 font-semibold truncate">{payment.failureReason}</div>
                         <div className="text-[10px] text-slate-500 font-mono">{payment.errorCode}</div>
                       </td>
-                      <td className="py-4 px-4 font-mono text-center">{payment.attempts}</td>
+                      <td className="py-4 px-4 font-mono text-center text-slate-700 font-semibold">{payment.attempts}</td>
                       <td className="py-4 px-4">
                         <Badge variant={statusVariant} size="sm" dot>
                           {payment.status.replace('_', ' ')}
                         </Badge>
                       </td>
                       <td className="py-4 px-4 text-right">
-                        <div className="text-orange-300 font-medium truncate max-w-xs ml-auto">
+                        <div className="text-purple-700 font-medium truncate max-w-xs ml-auto">
                           {payment.aiRecommendation}
                         </div>
-                        <div className="text-[10px] text-emerald-400 font-bold">
+                        <div className="text-[10px] text-emerald-700 font-bold">
                           {payment.aiConfidence}% AI Confidence
                         </div>
                       </td>

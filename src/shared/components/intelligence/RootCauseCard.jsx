@@ -12,10 +12,10 @@ export default function RootCauseCard({ rootCause }) {
   const confPct = Math.round((parseFloat(primary.confidence) || 0.85) * 100);
 
   return (
-    <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 font-mono text-xs">
+    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/90 space-y-3 font-mono text-xs shadow-xs">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 font-bold text-slate-300">
-          <ShieldAlert className="w-4 h-4 text-amber-400" />
+        <div className="flex items-center gap-2 font-bold text-slate-800">
+          <ShieldAlert className="w-4 h-4 text-amber-600" />
           <span>AI Root Cause Diagnostics</span>
         </div>
         <Badge variant="warning" size="sm">
@@ -24,20 +24,20 @@ export default function RootCauseCard({ rootCause }) {
       </div>
 
       <div className="space-y-1.5 pt-1">
-        <div className="text-sm font-bold text-white">
+        <div className="text-sm font-bold text-slate-900">
           {primary.title || primary.category || 'Payment Authorization Failure'}
         </div>
-        <p className="text-slate-300 text-[11px] leading-relaxed">
+        <p className="text-slate-600 text-[11px] leading-relaxed font-sans">
           {primary.reason || 'Failure detected during payment gateway authorization.'}
         </p>
       </div>
 
       {/* Contributing Factors Accordion */}
       {factors.length > 0 && (
-        <div className="pt-2 border-t border-slate-900 space-y-2">
+        <div className="pt-2 border-t border-slate-200 space-y-2">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="flex items-center justify-between w-full text-[11px] text-slate-400 hover:text-white transition-colors"
+            className="flex items-center justify-between w-full text-[11px] text-slate-500 hover:text-slate-900 transition-colors"
           >
             <span>Contributing Factors ({factors.length})</span>
             {expanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -48,12 +48,12 @@ export default function RootCauseCard({ rootCause }) {
               {factors.map((fac, idx) => {
                 const impactVariant = fac.impact === 'High' ? 'danger' : fac.impact === 'Medium' ? 'warning' : 'info';
                 return (
-                  <div key={idx} className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800/80 space-y-1">
+                  <div key={idx} className="bg-white p-2.5 rounded-lg border border-slate-200/80 space-y-1 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-200">{fac.factor}</span>
+                      <span className="font-semibold text-slate-900">{fac.factor}</span>
                       <Badge variant={impactVariant} size="sm">{fac.impact} Impact</Badge>
                     </div>
-                    <p className="text-[10px] text-slate-400">{fac.detail}</p>
+                    <p className="text-[10px] text-slate-500 font-sans">{fac.detail}</p>
                   </div>
                 );
               })}

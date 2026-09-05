@@ -139,15 +139,15 @@ export default function PaymentDetailDrawer({ payment, isOpen, onClose, onAction
       footer={
         <div className="space-y-2 w-full">
           {actionMsg && (
-            <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 p-2.5 rounded-xl text-xs font-semibold justify-center animate-fadeIn">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200/80 text-emerald-800 p-2.5 rounded-xl text-xs font-semibold justify-center animate-fadeIn shadow-xs">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>{actionMsg}</span>
             </div>
           )}
 
           {actionError && (
-            <div className="flex items-center gap-2 bg-rose-500/10 border border-rose-500/30 text-rose-400 p-2.5 rounded-xl text-xs font-semibold justify-center animate-fadeIn">
-              <AlertTriangle className="w-4 h-4 shrink-0" />
+            <div className="flex items-center gap-2 bg-rose-50 border border-rose-200/80 text-rose-800 p-2.5 rounded-xl text-xs font-semibold justify-center animate-fadeIn shadow-xs">
+              <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
               <span>{actionError}</span>
             </div>
           )}
@@ -178,31 +178,31 @@ export default function PaymentDetailDrawer({ payment, isOpen, onClose, onAction
     >
       <div className="space-y-6">
         {/* Top Header Card */}
-        <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 shadow-lg">
+        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/90 space-y-3 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Total Amount</span>
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Amount</span>
             <Badge variant={statusVariant} dot size="md">
               {(payment.status || 'created').replace('_', ' ').toUpperCase()}
             </Badge>
           </div>
-          <div className="text-3xl font-extrabold text-white">
+          <div className="text-3xl font-extrabold text-slate-900">
             ₹{(amountVal ?? 0).toLocaleString('en-IN')}
           </div>
-          <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-800/80">
+          <div className="grid grid-cols-2 gap-2 text-xs pt-2 border-t border-slate-200/80">
             <div>
               <span className="text-slate-500 block">Customer / ID</span>
-              <span className="text-slate-200 font-semibold">{payment.customer || merchantId}</span>
+              <span className="text-slate-900 font-semibold">{payment.customer || merchantId}</span>
             </div>
             <div>
               <span className="text-slate-500 block">Payment Method</span>
-              <span className="text-slate-200 font-semibold">{payment.method || payment.payment_method || 'Card'}</span>
+              <span className="text-slate-900 font-semibold">{payment.method || payment.payment_method || 'Card'}</span>
             </div>
           </div>
         </div>
 
         {/* AI Recovery Intelligence Live Section */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">AI Recovery Diagnostics & Insights</h4>
+          <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">AI Recovery Diagnostics & Insights</h4>
 
           {loadingAi ? (
             <IntelligenceLoadingState />
@@ -225,8 +225,8 @@ export default function PaymentDetailDrawer({ payment, isOpen, onClose, onAction
         {/* Executed Recovery Action Lifecycle Card */}
         {actionHistory.length > 0 && (
           <div className="space-y-2">
-            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-emerald-400" />
+            <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-emerald-600" />
               Recovery Action Lifecycle ({actionHistory.length})
             </h4>
             <div className="space-y-2">
@@ -239,40 +239,40 @@ export default function PaymentDetailDrawer({ payment, isOpen, onClose, onAction
                   : (act.recovery_state || 'AWAITING RETRY');
 
                 return (
-                  <div key={act.action_id} className="bg-slate-950 p-3.5 rounded-xl border border-emerald-500/30 text-xs space-y-2 shadow-sm">
+                  <div key={act.action_id} className="bg-emerald-50/60 p-3.5 rounded-xl border border-emerald-200/80 text-xs space-y-2 shadow-xs">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span className="font-bold text-slate-100 uppercase tracking-wide">{stratName}</span>
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span className="font-bold text-slate-900 uppercase tracking-wide">{stratName}</span>
                       </div>
                       <Badge variant={recState === 'RECOVERED' ? 'success' : 'brand'} size="sm">
                         {execStatus}
                       </Badge>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[11px] bg-slate-900/60 p-2 rounded-lg border border-slate-800">
+                    <div className="grid grid-cols-2 gap-2 text-[11px] bg-white p-2 rounded-lg border border-slate-200/80 shadow-xs">
                       <div>
                         <span className="text-slate-500 block">Execution Mode</span>
-                        <span className="text-amber-400 font-mono font-semibold">{modeName.replace(/_/g, ' ')}</span>
+                        <span className="text-purple-700 font-mono font-semibold">{modeName.replace(/_/g, ' ')}</span>
                       </div>
                       <div>
                         <span className="text-slate-500 block">Recovery Status</span>
-                        <span className={`font-semibold ${recState === 'RECOVERED' ? 'text-emerald-400' : 'text-cyan-400'}`}>
+                        <span className={`font-semibold ${recState === 'RECOVERED' ? 'text-emerald-700' : 'text-indigo-700'}`}>
                           {recState.replace(/_/g, ' ')}
                         </span>
                       </div>
                     </div>
 
                     {act.result && (
-                      <div className="text-[11px] text-slate-300">
-                        <span className="text-slate-400 font-semibold">Result: </span>
+                      <div className="text-[11px] text-slate-700">
+                        <span className="text-slate-500 font-semibold">Result: </span>
                         <span>{typeof act.result === 'string' ? act.result : JSON.stringify(act.result)}</span>
                       </div>
                     )}
 
                     {act.next_step && (
-                      <div className="text-[11px] text-slate-400 border-t border-slate-800/80 pt-1.5 flex justify-between items-center">
-                        <span><strong className="text-slate-300">Next Step:</strong> {act.next_step}</span>
+                      <div className="text-[11px] text-slate-500 border-t border-emerald-200/60 pt-1.5 flex justify-between items-center">
+                        <span><strong className="text-slate-700">Next Step:</strong> {act.next_step}</span>
                         <span className="text-[10px] text-slate-500 font-mono">{act.created_at.slice(0, 19).replace('T', ' ')}</span>
                       </div>
                     )}
@@ -285,19 +285,19 @@ export default function PaymentDetailDrawer({ payment, isOpen, onClose, onAction
 
         {/* Detailed Breakdown */}
         <div className="space-y-3">
-          <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Transaction Diagnostics</h4>
-          <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-            <div className="flex justify-between py-1 border-b border-slate-800/60">
-              <span className="text-slate-400">Failure Reason / Status</span>
-              <span className="text-rose-400 font-medium">{payment.failureReason || payment.error_description || payment.status}</span>
+          <h4 className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Transaction Diagnostics</h4>
+          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/90 space-y-2 text-xs">
+            <div className="flex justify-between py-1 border-b border-slate-200/80">
+              <span className="text-slate-500">Failure Reason / Status</span>
+              <span className="text-rose-600 font-semibold">{payment.failureReason || payment.error_description || payment.status}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-slate-800/60">
-              <span className="text-slate-400">Error Code</span>
-              <span className="font-mono text-slate-300">{payment.errorCode || payment.error_code || 'N/A'}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200/80">
+              <span className="text-slate-500">Error Code</span>
+              <span className="font-mono text-slate-700 font-semibold">{payment.errorCode || payment.error_code || 'N/A'}</span>
             </div>
-            <div className="flex justify-between py-1 border-b border-slate-800/60">
-              <span className="text-slate-400">Gateway / Bank</span>
-              <span className="text-slate-200">{payment.gateway || payment.bank || 'Razorpay Gateway'}</span>
+            <div className="flex justify-between py-1 border-b border-slate-200/80">
+              <span className="text-slate-500">Gateway / Bank</span>
+              <span className="text-slate-900 font-medium">{payment.gateway || payment.bank || 'Razorpay Gateway'}</span>
             </div>
           </div>
         </div>

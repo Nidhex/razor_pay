@@ -13,15 +13,15 @@ export default function RecoveryProbabilityCard({ prediction }) {
   const isHigh = pct >= 70;
   const isMedium = pct >= 40 && pct < 70;
 
-  const barColor = isHigh ? 'bg-emerald-400' : isMedium ? 'bg-amber-400' : 'bg-rose-500';
-  const textColor = isHigh ? 'text-emerald-400' : isMedium ? 'text-amber-400' : 'text-rose-400';
+  const barColor = isHigh ? 'bg-emerald-600' : isMedium ? 'bg-amber-500' : 'bg-rose-600';
+  const textColor = isHigh ? 'text-emerald-600' : isMedium ? 'text-amber-600' : 'text-rose-600';
   const badgeVariant = isHigh ? 'success' : isMedium ? 'warning' : 'danger';
 
   return (
-    <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3 font-mono">
+    <div className="bg-slate-50 p-4 rounded-xl border border-slate-200/90 space-y-3 font-mono shadow-xs">
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 text-xs font-bold text-slate-300">
-          <Activity className="w-4 h-4 text-cyan-400" />
+        <div className="flex items-center gap-2 text-xs font-bold text-slate-800">
+          <Activity className="w-4 h-4 text-indigo-600" />
           <span>ML Recovery Probability</span>
         </div>
         <Badge variant={badgeVariant} size="sm">
@@ -33,14 +33,14 @@ export default function RecoveryProbabilityCard({ prediction }) {
         <div className={`text-3xl font-extrabold ${textColor}`}>
           {pct}%
         </div>
-        <div className="text-xs text-slate-400">
-          Confidence Score: <strong className="text-white">{confidencePct}%</strong>
+        <div className="text-xs text-slate-500">
+          Confidence Score: <strong className="text-slate-900">{confidencePct}%</strong>
         </div>
       </div>
 
       {/* Visual Progress Bar Indicator */}
       <div className="space-y-1">
-        <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+        <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden border border-slate-200">
           <div
             className={`h-full ${barColor} transition-all duration-500 rounded-full`}
             style={{ width: `${pct}%` }}
@@ -53,7 +53,7 @@ export default function RecoveryProbabilityCard({ prediction }) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-900">
+      <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 border-t border-slate-200">
         <span className="flex items-center gap-1">
           <Cpu className="w-3 h-3 text-slate-400" />
           Model: {prediction.model_type || 'RandomForestClassifier'}

@@ -558,13 +558,13 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
     <>
       <Card
         className="
-          bg-slate-900/90
-          border-slate-800
-          hover:border-orange-500/30
+          bg-white
+          border-slate-200/90
+          hover:border-slate-300
           p-5
           relative
           overflow-hidden
-          shadow-lg
+          shadow-sm
           transition-colors
         "
       >
@@ -589,21 +589,21 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
             <div className="flex items-center gap-2">
 
               <CreditCard
-                className="w-5 h-5 text-orange-400"
+                className="w-5 h-5 text-indigo-600"
               />
 
               <h3
                 className="
                   text-sm
                   font-bold
-                  text-white
+                  text-slate-900
                 "
               >
                 Live Razorpay Test Mode Pipeline
               </h3>
 
               <Badge
-                variant="warning"
+                variant="brand"
                 size="xs"
               >
                 TEST MODE
@@ -614,7 +614,7 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
             <p
               className="
                 text-xs
-                text-slate-400
+                text-slate-500
               "
             >
               Trigger a real Razorpay Test payment.
@@ -664,18 +664,19 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
                 disabled={loading}
                 className="
                   w-24
-                  bg-slate-950
+                  bg-white
                   border
-                  border-slate-800
+                  border-slate-200
                   rounded-xl
                   text-xs
                   font-bold
-                  text-white
+                  text-slate-900
                   pl-6
                   pr-3
                   py-2
                   focus:outline-none
-                  focus:border-orange-500
+                  focus:border-indigo-500
+                  shadow-sm
                   disabled:opacity-50
                 "
                 placeholder="1"
@@ -688,7 +689,7 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
               onClick={handleStartPayment}
               disabled={loading}
               className="
-                flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-950 bg-gradient-to-r from-orange-400 to-amber-500 hover:from-orange-500 hover:to-amber-600 transition-all shadow-md shadow-orange-500/20 disabled:opacity-50 disabled:cursor-not-allowed
+                flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-all shadow-sm disabled:opacity-50 disabled:cursor-not-allowed
               "
             >
               {loading ? (
@@ -718,10 +719,10 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
           <div
             className="
               mt-3
-              bg-red-500/10
+              bg-rose-50
               border
-              border-red-500/30
-              text-red-300
+              border-rose-200/80
+              text-rose-700
               px-3
               py-2
               rounded-xl
@@ -736,7 +737,7 @@ export default function LivePaymentTestCard({ onPaymentCreated }) {
               className="
                 w-4
                 h-4
-                text-red-400
+                text-rose-600
                 shrink-0
               "
             />

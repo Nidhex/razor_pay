@@ -1,7 +1,3 @@
-import React from 'react';
-import MerchantSidebar from './MerchantSidebar';
-import MerchantTopbar from './MerchantTopbar';
-
 export default function MerchantLayout({ currentPortal, onPortalChange, activeTab, setActiveTab, children }) {
   const pageTitles = {
     dashboard: 'Merchant Dashboard',
@@ -14,12 +10,12 @@ export default function MerchantLayout({ currentPortal, onPortalChange, activeTa
   };
 
   return (
-    <div className="theme-merchant min-h-screen bg-[#090A0F] text-slate-100 flex font-sans">
-      {/* Sidebar */}
+    <div className="theme-merchant min-h-screen bg-[#F8F9FC] text-slate-900 flex font-sans antialiased">
+      {/* Dark Left Sidebar */}
       <MerchantSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* Main Content Area */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* Main Content Area (Light Clean Canvas) */}
+      <div className="flex-1 flex flex-col min-w-0 bg-[#F8F9FC]">
         <MerchantTopbar
           currentPortal={currentPortal}
           onPortalChange={onPortalChange}

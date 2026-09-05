@@ -70,16 +70,16 @@ export default function LivePayments() {
   return (
     <div className="space-y-8 animate-fadeIn select-none">
       {/* Context Header Banner */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#0F1117] border border-slate-800 p-6 rounded-2xl shadow-md">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white border border-slate-200/90 p-6 rounded-2xl shadow-sm">
         <div>
           <div className="flex items-center gap-2">
-            <Activity className="w-6 h-6 text-emerald-400 animate-pulse" />
-            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Persistent Live Payments</h2>
-            <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-semibold border border-emerald-500/30">
+            <Activity className="w-6 h-6 text-emerald-600 animate-pulse" />
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Persistent Live Payments</h2>
+            <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200/80">
               Database Sync Active
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 mt-1">
             Real-time Razorpay test mode payments backed by SQLite persistence, ML feature adaptation, root cause diagnostics, and recovery action execution.
           </p>
         </div>
@@ -87,7 +87,7 @@ export default function LivePayments() {
         <button
           onClick={fetchLivePayments}
           disabled={loading}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-200 transition-colors disabled:opacity-50"
         >
           <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
           <span>Refresh Feed</span>
@@ -96,31 +96,31 @@ export default function LivePayments() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-2 shadow-md">
+        <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Payments</span>
-            <Activity className="w-4 h-4 text-orange-400" />
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Total Payments</span>
+            <Activity className="w-4 h-4 text-purple-600" />
           </div>
-          <div className="text-2xl font-extrabold text-white">{totalCount} Payments</div>
-          <p className="text-xs text-slate-400">Database backed transactions</p>
+          <div className="text-2xl font-extrabold text-slate-900">{totalCount} Payments</div>
+          <p className="text-xs text-slate-500">Database backed transactions</p>
         </div>
 
-        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-2 shadow-md">
+        <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Captured & Verified</span>
-            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Captured & Verified</span>
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
           </div>
-          <div className="text-2xl font-extrabold text-white">{capturedCount} Successful</div>
-          <p className="text-xs text-slate-400">Processed via Razorpay Test</p>
+          <div className="text-2xl font-extrabold text-slate-900">{capturedCount} Successful</div>
+          <p className="text-xs text-slate-500">Processed via Razorpay Test</p>
         </div>
 
-        <div className="bg-[#0F1117] border border-slate-800 p-5 rounded-2xl space-y-2 shadow-md">
+        <div className="bg-white border border-slate-200/90 p-5 rounded-2xl space-y-2 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Failed Payments</span>
-            <XCircle className="w-4 h-4 text-rose-400" />
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Failed Payments</span>
+            <XCircle className="w-4 h-4 text-rose-600" />
           </div>
-          <div className="text-2xl font-extrabold text-white">{failedCount} Failures</div>
-          <p className="text-xs text-slate-400">Eligible for AI Recovery</p>
+          <div className="text-2xl font-extrabold text-slate-900">{failedCount} Failures</div>
+          <p className="text-xs text-slate-500">Eligible for AI Recovery</p>
         </div>
       </div>
 
@@ -128,10 +128,10 @@ export default function LivePayments() {
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
+            <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
               Persistent Live Payment Ledger
             </h3>
-            <p className="text-xs text-slate-400">Click any row or 'View Intelligence' to inspect diagnosis and execute recovery actions</p>
+            <p className="text-xs text-slate-500">Click any row or 'Inspect' to check diagnosis and execute recovery actions</p>
           </div>
 
           <div className="relative w-full sm:w-64">
@@ -141,37 +141,37 @@ export default function LivePayments() {
               placeholder="Search payment ID, method..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl text-xs text-slate-200 pl-8 pr-3 py-1.5 focus:outline-none focus:border-orange-500/50"
+              className="w-full bg-white border border-slate-200 rounded-xl text-xs text-slate-900 pl-8 pr-3 py-1.5 focus:outline-none focus:border-indigo-500 shadow-sm"
             />
           </div>
         </div>
 
         {loading ? (
-          <div className="h-64 bg-[#0F1117] border border-slate-800 rounded-2xl animate-pulse" />
+          <div className="h-64 bg-white border border-slate-200/90 rounded-2xl animate-pulse shadow-sm" />
         ) : error ? (
-          <div className="bg-rose-950/40 border border-rose-500/30 p-6 rounded-2xl space-y-3">
-            <div className="flex items-center gap-2 text-rose-400 font-bold text-sm">
+          <div className="bg-rose-50 border border-rose-200 p-6 rounded-2xl space-y-3">
+            <div className="flex items-center gap-2 text-rose-700 font-bold text-sm">
               <AlertTriangle className="w-5 h-5" />
               <span>Failed to load persistent live payments</span>
             </div>
-            <p className="text-xs text-slate-300">{error}</p>
-            <button onClick={fetchLivePayments} className="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white">
+            <p className="text-xs text-slate-600">{error}</p>
+            <button onClick={fetchLivePayments} className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:bg-slate-50 shadow-sm">
               Retry Connection
             </button>
           </div>
         ) : filteredPayments.length === 0 ? (
-          <div className="bg-[#0F1117] border border-slate-800 p-8 rounded-2xl text-center space-y-3">
-            <Activity className="w-8 h-8 text-slate-600 mx-auto" />
-            <div className="text-sm font-bold text-slate-300">No live payments recorded yet</div>
-            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+          <div className="bg-white border border-slate-200/90 p-8 rounded-2xl text-center space-y-3 shadow-sm">
+            <Activity className="w-8 h-8 text-slate-400 mx-auto" />
+            <div className="text-sm font-bold text-slate-800">No live payments recorded yet</div>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
               Create a test payment using the Razorpay Test Card on the Merchant Dashboard to generate live database-backed payments.
             </p>
           </div>
         ) : (
-          <div className="bg-[#0F1117] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+                <thead className="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-[10px] tracking-wider font-semibold">
                   <tr>
                     <th className="py-3.5 px-4">Payment ID</th>
                     <th className="py-3.5 px-4">Amount</th>
@@ -184,7 +184,7 @@ export default function LivePayments() {
                     <th className="py-3.5 px-4 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-300">
+                <tbody className="divide-y divide-slate-100 text-slate-700">
                   {filteredPayments.map((pm) => {
                     const prob = pm.intelligence?.prediction?.recovery_probability || 0.65;
                     const probPct = Math.round(prob * 100);
@@ -203,12 +203,12 @@ export default function LivePayments() {
                       <tr
                         key={pm.payment_id}
                         onClick={() => handleOpenDrawer(pm)}
-                        className="hover:bg-slate-800/50 cursor-pointer transition-colors duration-150 group"
+                        className="hover:bg-slate-50/80 cursor-pointer transition-colors duration-150 group"
                       >
-                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-200 group-hover:text-orange-400">
+                        <td className="py-3.5 px-4 font-mono font-semibold text-slate-900 group-hover:text-purple-600">
                           {pm.payment_id}
                         </td>
-                        <td className="py-3.5 px-4 font-bold text-emerald-400">
+                        <td className="py-3.5 px-4 font-bold text-emerald-600">
                           ₹{pm.amount_inr?.toLocaleString()}
                         </td>
                         <td className="py-3.5 px-4">
@@ -216,24 +216,24 @@ export default function LivePayments() {
                             {(pm.status || '').toUpperCase()}
                           </Badge>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-300">{pm.payment_method}</td>
-                        <td className="py-3.5 px-4 text-slate-400 font-mono text-[11px]">
+                        <td className="py-3.5 px-4 text-slate-700 font-medium">{pm.payment_method}</td>
+                        <td className="py-3.5 px-4 text-slate-500 font-mono text-[11px]">
                           {pm.created_at ? pm.created_at.slice(0, 19).replace('T', ' ') : 'Just now'}
                         </td>
                         <td className="py-3.5 px-4">
-                          <span className={`font-bold ${probPct >= 75 ? 'text-emerald-400' : probPct >= 50 ? 'text-amber-400' : 'text-rose-400'}`}>
+                          <span className={`font-bold ${probPct >= 75 ? 'text-emerald-600' : probPct >= 50 ? 'text-amber-600' : 'text-rose-600'}`}>
                             {probPct}%
                           </span>
                         </td>
-                        <td className="py-3.5 px-4 text-slate-300 truncate max-w-[140px]">{band}</td>
-                        <td className="py-3.5 px-4 text-orange-300 font-medium truncate max-w-[160px]">{recStrategy}</td>
+                        <td className="py-3.5 px-4 text-slate-600 truncate max-w-[140px]">{band}</td>
+                        <td className="py-3.5 px-4 text-purple-700 font-medium truncate max-w-[160px]">{recStrategy}</td>
                         <td className="py-3.5 px-4 text-right">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               handleOpenDrawer(pm);
                             }}
-                            className="inline-flex items-center gap-1 text-xs font-semibold text-orange-400 hover:text-orange-300 px-2.5 py-1 rounded-lg bg-orange-500/10 border border-orange-500/20"
+                            className="inline-flex items-center gap-1 text-xs font-semibold text-purple-600 hover:text-purple-700 px-2.5 py-1 rounded-lg bg-purple-50 border border-purple-200/80 transition-colors"
                           >
                             <span>Inspect</span>
                             <ArrowUpRight className="w-3 h-3" />

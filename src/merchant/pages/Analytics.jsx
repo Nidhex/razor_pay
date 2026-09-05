@@ -98,8 +98,8 @@ export default function Analytics() {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-white tracking-tight">Merchant Recovery & Failure Analytics</h2>
-          <p className="text-xs text-slate-400">Deep-dive breakdown into failure reasons, payment methods, and AI strategy conversion rates.</p>
+          <h2 className="text-xl font-bold text-slate-900 tracking-tight">Merchant Recovery & Failure Analytics</h2>
+          <p className="text-xs text-slate-500">Deep-dive breakdown into failure reasons, payment methods, and AI strategy conversion rates.</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -109,8 +109,8 @@ export default function Analytics() {
               onClick={() => setTimeframe(tf)}
               className={`px-3 py-1.5 text-xs font-semibold rounded-xl border transition-all ${
                 timeframe === tf
-                  ? 'bg-orange-500/20 border-orange-500/30 text-orange-300 shadow-md'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'bg-purple-50 border-purple-200/80 text-purple-700 shadow-xs font-bold'
+                  : 'bg-slate-100 border-slate-200 text-slate-600 hover:text-slate-900'
               }`}
             >
               {tf}
@@ -122,33 +122,33 @@ export default function Analytics() {
       {/* Top Summary KPI Cards if available */}
       {core && (
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
-            <span className="text-xs text-slate-400 font-medium">Total Volume</span>
-            <div className="text-2xl font-extrabold text-white">
+          <div className="bg-white border border-slate-200/90 p-4 rounded-2xl space-y-1 shadow-sm">
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Total Volume</span>
+            <div className="text-2xl font-extrabold text-slate-900">
               ₹{(core.total_volume || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </div>
             <span className="text-[10px] text-slate-500 font-mono">{core.total_transactions || 0} total transactions</span>
           </div>
 
-          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
-            <span className="text-xs text-slate-400 font-medium">Revenue At Risk</span>
-            <div className="text-2xl font-extrabold text-rose-400">
+          <div className="bg-white border border-slate-200/90 p-4 rounded-2xl space-y-1 shadow-sm">
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Revenue At Risk</span>
+            <div className="text-2xl font-extrabold text-rose-600">
               ₹{(core.revenue_at_risk || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </div>
             <span className="text-[10px] text-slate-500 font-mono">{core.failed_transactions || 0} failed payments</span>
           </div>
 
-          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
-            <span className="text-xs text-slate-400 font-medium">Revenue Recovered</span>
-            <div className="text-2xl font-extrabold text-emerald-400">
+          <div className="bg-white border border-slate-200/90 p-4 rounded-2xl space-y-1 shadow-sm">
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Revenue Recovered</span>
+            <div className="text-2xl font-extrabold text-emerald-600">
               ₹{(core.revenue_recovered || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
             </div>
             <span className="text-[10px] text-slate-500 font-mono">{core.recovered_cases || 0} confirmed recovered cases</span>
           </div>
 
-          <div className="bg-[#0F1117] border border-slate-800 p-4 rounded-2xl space-y-1 shadow-md">
-            <span className="text-xs text-slate-400 font-medium">Recovery Rate</span>
-            <div className="text-2xl font-extrabold text-orange-400">
+          <div className="bg-white border border-slate-200/90 p-4 rounded-2xl space-y-1 shadow-sm">
+            <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider">Recovery Rate</span>
+            <div className="text-2xl font-extrabold text-purple-600">
               {(core.recovery_rate || 0).toFixed(2)}%
             </div>
             <span className="text-[10px] text-slate-500 font-mono">Confirmed recovery ratio</span>
@@ -159,8 +159,8 @@ export default function Analytics() {
       {/* Grid 1: Failure Reason Distribution & AI Strategy Effectiveness */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Failure Reason Bar Chart */}
-        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
-          <div className="text-sm font-bold text-white tracking-tight">Top Failure Reasons</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-3">
+          <div className="text-sm font-bold text-slate-900 tracking-tight">Top Failure Reasons</div>
           {failureReasonsChart.length === 0 ? (
             <div className="h-64 flex items-center justify-center text-xs text-slate-500">
               No failure records found in database
@@ -173,7 +173,7 @@ export default function Analytics() {
                     <XAxis dataKey="name" stroke="#64748b" fontSize={10} tickLine={false} />
                     <YAxis stroke="#64748b" fontSize={10} tickLine={false} />
                     <Tooltip
-                      contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', fontSize: '12px', color: '#fff' }}
+                      contentStyle={{ backgroundColor: '#ffffff', borderColor: '#e2e8f0', borderRadius: '12px', fontSize: '12px', color: '#0f172a', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}
                       formatter={(val, name, item) => [`${val}% (${item.payload.count} txns)`, 'Share']}
                     />
                     <Bar dataKey="value" radius={[6, 6, 0, 0]}>
@@ -185,11 +185,11 @@ export default function Analytics() {
                 </ResponsiveContainer>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-slate-800 text-xs">
+              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-slate-100 text-xs">
                 {failureReasonsChart.map((fr) => (
-                  <div key={fr.name} className="flex items-center justify-between p-2 rounded-lg bg-slate-950">
-                    <span className="text-slate-400 font-medium truncate">{fr.name}</span>
-                    <span className="font-bold text-white">{fr.count} txns</span>
+                  <div key={fr.name} className="flex items-center justify-between p-2 rounded-lg bg-slate-50">
+                    <span className="text-slate-600 font-medium truncate">{fr.name}</span>
+                    <span className="font-bold text-slate-900">{fr.count} txns</span>
                   </div>
                 ))}
               </div>
@@ -198,8 +198,8 @@ export default function Analytics() {
         </div>
 
         {/* Strategy Conversion Performance */}
-        <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
-          <div className="text-sm font-bold text-white tracking-tight">AI Strategy Effectiveness</div>
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-3">
+          <div className="text-sm font-bold text-slate-900 tracking-tight">AI Strategy Effectiveness</div>
           <div className="space-y-4 pt-1">
             {strategyPerformance.length === 0 ? (
               <div className="h-64 flex items-center justify-center text-xs text-slate-500">
@@ -207,22 +207,22 @@ export default function Analytics() {
               </div>
             ) : (
               strategyPerformance.map((sc) => (
-                <div key={sc.strategy} className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                <div key={sc.strategy} className="bg-slate-50 p-4 rounded-xl border border-slate-200/80 space-y-2">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="font-semibold text-white">{sc.strategy}</span>
-                    <span className="text-emerald-400 font-extrabold">{sc.rate}% Conversion</span>
+                    <span className="font-semibold text-slate-900">{sc.strategy}</span>
+                    <span className="text-emerald-600 font-extrabold">{sc.rate}% Conversion</span>
                   </div>
 
-                  <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-orange-500 to-emerald-400"
+                      className="h-full bg-indigo-600"
                       style={{ width: `${sc.rate}%` }}
                     />
                   </div>
 
-                  <div className="flex justify-between text-[11px] text-slate-400 pt-1">
+                  <div className="flex justify-between text-[11px] text-slate-500 pt-1">
                     <span>{sc.attempts} attempts ({sc.recovered} recovered)</span>
-                    <span className="text-white font-bold">₹{(sc.revenue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })} Recovered</span>
+                    <span className="text-slate-900 font-bold">₹{(sc.revenue || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })} Recovered</span>
                   </div>
                 </div>
               ))
@@ -232,11 +232,11 @@ export default function Analytics() {
       </div>
 
       {/* Grid 2: Payment Method Breakdown Table */}
-      <div className="bg-[#0F1117] border border-slate-800 rounded-2xl p-5 shadow-md space-y-3">
-        <div className="text-sm font-bold text-white tracking-tight">Payment Method Failure & Recovery Matrix</div>
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-sm space-y-3">
+        <div className="text-sm font-bold text-slate-900 tracking-tight">Payment Method Failure & Recovery Matrix</div>
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-950/80 border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider font-semibold">
+            <thead className="bg-slate-50/80 border-b border-slate-200 text-slate-500 uppercase text-[10px] tracking-wider font-semibold">
               <tr>
                 <th className="py-3 px-4">Payment Method</th>
                 <th className="py-3 px-4">Failed Count</th>
@@ -245,7 +245,7 @@ export default function Analytics() {
                 <th className="py-3 px-4 text-right">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-300">
+            <tbody className="divide-y divide-slate-100 text-slate-700">
               {methodBreakdown.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="py-6 text-center text-slate-500 text-xs">
@@ -256,11 +256,11 @@ export default function Analytics() {
                 methodBreakdown.map((mb) => {
                   const share = Math.round((mb.failures / totalMethodFailures) * 100);
                   return (
-                    <tr key={mb.name} className="hover:bg-slate-800/40">
-                      <td className="py-3.5 px-4 font-semibold text-white">{mb.name}</td>
-                      <td className="py-3.5 px-4 font-bold text-slate-200">{mb.failures} failures</td>
-                      <td className="py-3.5 px-4 font-mono text-amber-400">₹{(mb.volume || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
-                      <td className="py-3.5 px-4 text-orange-300 font-mono">{share}% of total</td>
+                    <tr key={mb.name} className="hover:bg-slate-50/80 transition-colors">
+                      <td className="py-3.5 px-4 font-semibold text-slate-900">{mb.name}</td>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">{mb.failures} failures</td>
+                      <td className="py-3.5 px-4 font-mono text-amber-600 font-semibold">₹{(mb.volume || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</td>
+                      <td className="py-3.5 px-4 text-purple-700 font-mono font-medium">{share}% of total</td>
                       <td className="py-3.5 px-4 text-right">
                         <Badge variant={share < 40 ? 'success' : 'warning'} size="sm">
                           {share < 40 ? 'Optimal' : 'High Failure Volume'}
